@@ -6,18 +6,6 @@ const {
   deleteExp
 } = require('../models/ExperienceModel')
 
-const {
-  statusGet,
-  statusCreate,
-  statusCreateFail,
-  statusUpdate,
-  statusUpdateFail,
-  statusDelete,
-  statusDeleteFail,
-  statusServerError,
-  statusNotFound
-} = require('../helpers/status')
-
 module.exports = {
   getAllExpById: async (req, res, _next) => {
     const { exId } = req.params
@@ -26,12 +14,21 @@ module.exports = {
       const result = await getAllExpById(exId)
 
       if (result.length) {
-        statusGet(res, result)
+        res.status(200).send({
+          success: true,
+          message: `experience with ${exId}`
+        })
       } else {
-        statusNotFound(res)
+        res.send(404).send({
+          success: false,
+          message: 'experience not found'
+        })
       }
     } catch (error) {
-      statusServerError(res)
+      res.status(500).send({
+        success: false,
+        message: 'Internal Server Eror'
+      })
     }
   },
 
@@ -42,12 +39,21 @@ module.exports = {
       const result = await getExpById(exId)
 
       if (result.length) {
-        statusGet(res, result)
+        res.status(200).send({
+          success: true,
+          message: `data with ${exId}`
+        })
       } else {
-        statusNotFound(res)
+        res.status(404).send({
+          success: false,
+          message: 'Data experience not found'
+        })
       }
     } catch (error) {
-      statusServerError(res)
+      res.status(500).send({
+        success: false,
+        message: 'Internal Server Eror !'
+      })
     }
   },
 
@@ -56,12 +62,21 @@ module.exports = {
       const result = await createExp(req.body)
 
       if (result.affectedRows) {
-        statusCreate(res)
+        res.status(200).send({
+          success: true,
+          message: 'Succeess add experience'
+        })
       } else {
-        statusCreateFail(res)
+        res.status(400).send({
+          success: false,
+          message: 'failed to add experience'
+        })
       }
     } catch (err) {
-      statusServerError(res)
+      res.status(500).send({
+        success: false,
+        message: 'Internal server error!'
+      })
     }
   },
 
@@ -74,15 +89,27 @@ module.exports = {
         const result = await updateExp(exId, req.body)
 
         if (result.affectedRows) {
-          statusUpdate(res)
+          res.status(200).send({
+            success: true,
+            message: 'success update account'
+          })
         } else {
-          statusUpdateFail(res)
+          res.status(400).send({
+            success: false,
+            message: 'failed to update experience'
+          })
         }
       } else {
-        statusNotFound(res)
+        res.status(404).send({
+          success: false,
+          message: 'data not found'
+        })
       }
     } catch (err) {
-      statusServerError(res)
+      res.status(500).send({
+        success: false,
+        message: 'internal server error!'
+      })
     }
   },
 
@@ -95,15 +122,27 @@ module.exports = {
         const result = await deleteExp(exId)
 
         if (result.affectedRows) {
-          statusDelete(res)
+          res.status(200).send({
+            success: true,
+            message: `data with ${exId} hasbeen update`
+          })
         } else {
-          statusDeleteFail(res)
+          res.status(400).send({
+            success: false,
+            message: 'failed to delete experience'
+          })
         }
       } else {
-        statusNotFound(res)
+        res.status(404).send({
+          success: false,
+          message: 'data not found'
+        })
       }
     } catch (err) {
-      statusServerError(res)
+      res.status(500).send({
+        success: false,
+        message: 'internal server error'
+      })
     }
   }
 }

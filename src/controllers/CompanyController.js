@@ -24,10 +24,10 @@ module.exports = {
   },
 
   getCompanyById: async (req, res, _next) => {
-    const { cnId } = req.params
+    const { compId } = req.params
 
     try {
-      const result = await getCompanyById(cnId)
+      const result = await getCompanyById(compId)
 
       if (result.length) {
         statusGet(res, result)
@@ -41,11 +41,11 @@ module.exports = {
 
   updateCompany: async (req, res, _next) => {
     try {
-      const { cnId } = req.params
-      const findData = await getCompanyById(cnId)
+      const { compId } = req.params
+      const findData = await getCompanyById(compId)
 
       if (findData.length) {
-        const result = await updateCompany(cnId, req.body)
+        const result = await updateCompany(compId, req.body)
 
         if (result.affectedRows) {
           statusUpdate(res)

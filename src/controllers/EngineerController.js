@@ -57,10 +57,10 @@ module.exports = {
   },
 
   getEngineerById: async (req, res, _next) => {
-    const { enId } = req.params
+    const { eId } = req.params
 
     try {
-      const result = await getEngineerById(enId)
+      const result = await getEngineerById(eId)
 
       if (result.length) {
         statusGet(res, result)
@@ -108,11 +108,11 @@ module.exports = {
 
   updateEngineer: async (req, res, _next) => {
     try {
-      const { enId } = req.params
-      const findData = await getEngineerById(enId)
+      const { eId } = req.params
+      const findData = await getEngineerById(eId)
 
       if (findData.length) {
-        const result = await updateEngineer(enId, req.body)
+        const result = await updateEngineer(eId, req.body)
 
         if (result.affectedRows) {
           statusUpdate(res)

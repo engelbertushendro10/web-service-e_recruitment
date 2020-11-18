@@ -9,8 +9,8 @@ const {
 } = require('../controllers/EngineerController')
 
 router.get('/', getAllEngineer)
-router.get('/detail/:enId', getEngineerById)
+router.get('/detail/:eId', getEngineerById)
 router.get('/filter', getFilterEngineer)
-router.put('/:enId', updateEngineer)
+router.put('/:eId', updateEngineer)
 
 module.exports = router

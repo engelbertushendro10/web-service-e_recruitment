@@ -32,16 +32,16 @@ module.exports = {
     })
   },
 
-  getCompanyById: (cnId) => {
+  getCompanyById: (compId) => {
     return new Promise((resolve, reject) => {
       const query = `
         SELECT *
-          FROM company cn
-          JOIN account ac ON ac.acc_id = cn.ac_id
+          FROM company comp
+          JOIN account acc ON acc.acc_id = comp.ac_id
          WHERE ?
       `
 
-      dbConnect.query(query, { cn_id: cnId }, (error, results, _fields) => {
+      dbConnect.query(query, { c_id: compId }, (error, results, _fields) => {
         if (!error) {
           resolve(results)
         } else {
@@ -51,10 +51,10 @@ module.exports = {
     })
   },
 
-  updateCompany: (cnId, data) => {
+  updateCompany: (compId, data) => {
     return new Promise((resolve, reject) => {
       const query = `
-        UPDATE company SET ? WHERE cn_id = ${cnId}
+        UPDATE company SET ? WHERE c_id = ${compId}
       `
 
       dbConnect.query(query, data, (error, results, _fields) => {

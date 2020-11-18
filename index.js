@@ -3,6 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT
+const morgan = require('morgan')
+const cors = require('cors')
 
 const accountRouter = require('./src/routes/account')
 const enginerRouter = require('./src/routes/engineer')
@@ -15,6 +17,18 @@ const skillRouter = require('./src/routes/skill')
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(morgan('dev'))
+
+// setting cors
+app.use(cors())
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authoization'
+  )
+  next()
+})
 app.use('/account', accountRouter)
 app.use('/enginer', enginerRouter)
 app.use('/company', companyRouter)

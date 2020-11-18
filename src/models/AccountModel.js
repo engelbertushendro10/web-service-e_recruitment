@@ -1,27 +1,19 @@
+//const bcrypt = require ('bcrypt')
 const dbConnect = require('../config/database')
-
 const { createEngineer } = require('../models/EngineerModel')
 const { createCompany } = require('../models/CompanyModel')
 
 module.exports = {
-  createAccount: (data) => {
+  createAccount: (setAccount) => {
     return new Promise((resolve, reject) => {
-      const dataAccount = {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        type: data.type
-      }
-      const query = `
-        INSERT INTO account SET ? `
-      dbConnect.query(query, dataAccount, async (err, res, _fields) => {
+      dbConnect.query ('INSERT INTO account SET ?', setAccount, async (err, res, _fields) => {
         if (!err) {
-          if (data.type === 'enginer') {
+          if (setAccount.type === 'enginer') {
             await createEngineer(res.insertId)
           } else {
             await createCompany({
               ac_id: res.insertId,
-              c_name: data.username
+              c_name: username
             })
           }
           resolve(res)

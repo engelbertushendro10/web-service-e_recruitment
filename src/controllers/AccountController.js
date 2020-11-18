@@ -1,8 +1,11 @@
 const {
   createAccount,
   updateAccount,
-  getAccountById
+  getAccountById 
 } = require('../models/AccountModel')
+//bcrypt
+const bcrypt = require('bcrypt')
+
 
 const {
   statusNotFound
@@ -10,9 +13,20 @@ const {
 
 module.exports = {
   createAccount: async (req, res, _next) => {
-    try {
-      const result = await createAccount(req.body)
+    const {username, password, email, type} = req.body
+    const salt = bcrypt.genSaltSync(10)
+    const bcryptPsw = bcrypt.hashSync(password, salt)
 
+    const setAccount = {
+      username : username,
+      password : bcryptPsw,
+      email : email,
+      type : type
+    }
+
+    try {
+      const result = await createAccount(setAccount)
+      console.log(result)
       if (result.affectedRows) {
         res.status(200).send({
           success: true,
@@ -60,5 +74,9 @@ module.exports = {
         message: 'internal server error'
       })
     }
-  }
+  },
+  // login
+  // accountLogin:(req,res)=>{
+
+  // }
 }
