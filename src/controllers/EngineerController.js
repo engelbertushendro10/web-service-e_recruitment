@@ -105,7 +105,6 @@ module.exports = {
       statusServerError(res)
     }
   },
-
   updateEngineer: async (req, res, _next) => {
     try {
       const { eId } = req.params

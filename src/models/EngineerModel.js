@@ -7,7 +7,7 @@ module.exports = {
         INSERT INTO enginer
                 SET ?
       `
-      dbConnect.query(query, { acc_id: acountId }, (error, results, _fields) => {
+      dbConnect.query(query, { acc_id: acountId}, (error, results, _fields) => {
         if (!error) {
           resolve(results)
         } else {
@@ -198,15 +198,15 @@ module.exports = {
     })
   },
 
-  updateEngineer: (enId, data) => {
+  updateEngineer: (eId, accountId) => {
     return new Promise((resolve, reject) => {
       const query = `
-        UPDATE engineer
+        UPDATE enginer
            SET ?
-         WHERE en_id = ${enId}
+         WHERE e_id = ${eId}
       `
 
-      dbConnect.query(query, data, (error, results, _fields) => {
+      dbConnect.query(query, accountId, (error, results, _fields) => {
         if (!error) {
           resolve(results)
         } else {

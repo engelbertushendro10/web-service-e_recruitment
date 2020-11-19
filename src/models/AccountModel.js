@@ -13,7 +13,7 @@ module.exports = {
           } else {
             await createCompany({
               ac_id: res.insertId,
-              c_name: username
+              c_name: setAccount.username
             })
           }
           resolve(res)
@@ -24,15 +24,14 @@ module.exports = {
     })
   },
 
-  updateAccount: (accountId, data) => {
+  updateAccount: (accountId, setAccount) => {
     return new Promise((resolve, reject) => {
       const query = `
         UPDATE account
            SET ?
          WHERE acc_id = ${accountId}
       `
-
-      dbConnect.query(query, data, (error, results, _fields) => {
+      dbConnect.query(query, setAccount, (error, results, _fields) => {
         if (!error) {
           resolve(results)
         } else {

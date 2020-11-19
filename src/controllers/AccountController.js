@@ -48,11 +48,11 @@ module.exports = {
 
   updateAccount: async (req, res, _next) => {
     try {
-      const { acId } = req.params
-      const findData = await getAccountById(acId)
+      const { accountId } = req.params
+      const findData = await getAccountById(accountId)
 
       if (findData.length) {
-        const result = await updateAccount(acId, req.body)
+        const result = await updateAccount(accountId, req.body)
 
         if (result.affectedRows) {
           res.status(200).send({

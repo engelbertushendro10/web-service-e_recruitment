@@ -7,7 +7,7 @@ const {
 } = require('../controllers/AccountController')
 
 router.post('/', createAccount)
-router.put('/:acId', updateAccount)
+router.put('/:accountId', updateAccount)
 //login
 // router.post('/login',loginAccount)
 
