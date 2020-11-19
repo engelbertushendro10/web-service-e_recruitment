@@ -47,12 +47,22 @@ module.exports = {
   },
 
   updateAccount: async (req, res, _next) => {
+    const {username, password, email, type} = req.body
+    const salt = bcrypt.genSaltSync(10)
+    const bcryptPsw = bcrypt.hashSync(password, salt)
+
+    const setAccount = {
+      username : username,
+      password : bcryptPsw,
+      email : email,
+      type : type
+    }
     try {
       const { accountId } = req.params
       const findData = await getAccountById(accountId)
 
       if (findData.length) {
-        const result = await updateAccount(accountId, req.body)
+        const result = await updateAccount(accountId, setAccount, req.body)
 
         if (result.affectedRows) {
           res.status(200).send({

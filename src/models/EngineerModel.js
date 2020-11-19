@@ -64,22 +64,23 @@ module.exports = {
     })
   },
 
-  getEngineerById: (enId) => {
+  getEngineerById: (eId) => {
     return new Promise((resolve, reject) => {
       const query = `
-        SELECT en.en_id,
-               ac.ac_id,
-               ac.ac_name,
-               en.en_job_title,
-               en.en_job_type,
-               en.en_domicile
-          FROM engineer en
+        SELECT en.e_id,
+               ac.acc_id,
+               en.e_name,
+               en.e_addres,
+               en.e_skill,
+               en.e_github,
+               en.e_sosmed
+          FROM enginer en
           JOIN account ac
-            ON ac.ac_id = en.ac_id
+            ON ac.acc_id = en.acc_id
          WHERE ?
       `
 
-      dbConnect.query(query, { en_id: enId }, (error, results, _fields) => {
+      dbConnect.query(query, { e_id: eId }, (error, results, _fields) => {
         if (!error) {
           resolve(results)
         } else {
@@ -198,7 +199,7 @@ module.exports = {
     })
   },
 
-  updateEngineer: (eId, accountId) => {
+  updateEngineer: (eId, acountId) => {
     return new Promise((resolve, reject) => {
       const query = `
         UPDATE enginer
@@ -206,8 +207,9 @@ module.exports = {
          WHERE e_id = ${eId}
       `
 
-      dbConnect.query(query, accountId, (error, results, _fields) => {
+      dbConnect.query(query, acountId, (error, results, _fields) => {
         if (!error) {
+         // console.log(query)
           resolve(results)
         } else {
           reject(error)
