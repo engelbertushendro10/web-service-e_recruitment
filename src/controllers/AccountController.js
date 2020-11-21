@@ -8,9 +8,7 @@ const {
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv')
-const {
-    statusNotFound
-} = require('../helpers/status')
+const { statusNotFound, statusLogin, statusCreate, statusServerError } = require('../helpers/status')
 
 module.exports = {
     createAccount: async(req, res, _next) => {
@@ -29,21 +27,12 @@ module.exports = {
             const result = await createAccount(setAccount)
             console.log(result)
             if (result.affectedRows) {
-                res.status(200).send({
-                    success: true,
-                    message: 'success add account'
-                })
+                statusCreate(res)
             } else {
-                res.statu(400).send({
-                    success: true,
-                    message: 'failed to add acount'
-                })
+                statusCreateFailed(res)
             }
         } catch (err) {
-            res.status(500).send({
-                success: false,
-                message: 'Internal server eror'
-            })
+            statusServerError(res)
         }
     },
 
@@ -80,15 +69,11 @@ module.exports = {
                 statusNotFound(res)
             }
         } catch (err) {
-            res.status(500).send({
-                success: false,
-                message: 'internal server error'
-            })
+            statusServerError(res)
         }
     },
     // login
     loginAccount: async(req, res) => {
-
         try {
             //console.log('data ok')
             const { email, password } = req.body
@@ -116,7 +101,7 @@ module.exports = {
                         data: peyLoad
                     })
                 } else {
-                    res.status(40).send({
+                    res.status(400).send({
                         success: false,
                         message: 'Email or password wrong'
                     })

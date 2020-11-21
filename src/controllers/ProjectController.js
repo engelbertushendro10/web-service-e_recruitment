@@ -1,109 +1,110 @@
 const {
-  createProject,
-  getAllProjectById,
-  getProjectById,
-  updateProject,
-  deleteProject
+    createProject,
+    getAllProjectById,
+    getProjectById,
+    updateProject,
+    deleteProject
 } = require('../models/ProjectModel')
 
 const {
-  statusGet,
-  statusCreate,
-  statusCreateFail,
-  statusUpdate,
-  statusUpdateFail,
-  statusDelete,
-  statusDeleteFail,
-  statusServerError,
-  statusNotFound
+    statusGet,
+    statusCreate,
+    statusCreateFailed,
+    statusUpdate,
+    statusUpdateFail,
+    statusDelete,
+    statusDeleteFail,
+    statusServerError,
+    statusNotFound
 } = require('../helpers/status')
+    //const { authorization } = require('../helpers/auth')
 
 module.exports = {
-  getAllProjectById: async (req, res, _next) => {
-    const { cnId } = req.params
+    getAllProjectById: async(req, res, _next) => {
+        const { cId } = req.params
 
-    try {
-      const result = await getAllProjectById(cnId)
+        try {
+            const result = await getAllProjectById(cId)
 
-      if (result.length) {
-        statusGet(res, result)
-      } else {
-        statusNotFound(res)
-      }
-    } catch (error) {
-      statusServerError(res)
-    }
-  },
-
-  getProjectById: async (req, res, _next) => {
-    const { pjId } = req.params
-
-    try {
-      const result = await getProjectById(pjId)
-
-      if (result.length) {
-        statusGet(res, result)
-      } else {
-        statusNotFound(res)
-      }
-    } catch (error) {
-      statusServerError(res)
-    }
-  },
-
-  createProject: async (req, res, _next) => {
-    try {
-      const result = await createProject(req.body)
-
-      if (result.affectedRows) {
-        statusCreate(res)
-      } else {
-        statusCreateFail(res)
-      }
-    } catch (err) {
-      statusServerError(res)
-    }
-  },
-
-  updateProject: async (req, res, _next) => {
-    try {
-      const { pjId } = req.params
-      const findData = await getProjectById(pjId)
-
-      if (findData.length) {
-        const result = await updateProject(pjId, req.body)
-
-        if (result.affectedRows) {
-          statusUpdate(res)
-        } else {
-          statusUpdateFail(res)
+            if (result.length) {
+                statusGet(res, result)
+            } else {
+                statusNotFound(res)
+            }
+        } catch (error) {
+            statusServerError(res)
         }
-      } else {
-        statusNotFound(res)
-      }
-    } catch (err) {
-      statusServerError(res)
-    }
-  },
+    },
 
-  deleteProject: async (req, res, _next) => {
-    try {
-      const { pjId } = req.params
-      const findData = await getProjectById(pjId)
+    getProjectById: async(req, res, _next) => {
+        const { pId } = req.params
 
-      if (findData.length) {
-        const result = await deleteProject(pjId)
+        try {
+            const result = await getProjectById(pId)
 
-        if (result.affectedRows) {
-          statusDelete(res)
-        } else {
-          statusDeleteFail(res)
+            if (result.length) {
+                statusGet(res, result)
+            } else {
+                statusNotFound(res)
+            }
+        } catch (error) {
+            statusServerError(res)
         }
-      } else {
-        statusNotFound(res)
-      }
-    } catch (err) {
-      statusServerError(res)
+    },
+
+    createProject: async(req, res, _next) => {
+        try {
+            const result = await createProject(req.body)
+
+            if (result.affectedRows) {
+                statusCreate(res)
+            } else {
+                statusCreateFailed(res)
+            }
+        } catch (err) {
+            statusServerError(res)
+        }
+    },
+
+    updateProject: async(req, res, _next) => {
+        try {
+            const { pId } = req.params
+            const findData = await getProjectById(pId)
+
+            if (findData.length) {
+                const result = await updateProject(pId, req.body)
+
+                if (result.affectedRows) {
+                    statusUpdate(res)
+                } else {
+                    statusUpdateFail(res)
+                }
+            } else {
+                statusNotFound(res)
+            }
+        } catch (err) {
+            statusServerError(res)
+        }
+    },
+
+    deleteProject: async(req, res, _next) => {
+        try {
+            const { pId } = req.params
+            const findData = await getProjectById(pId)
+
+            if (findData.length) {
+                const result = await deleteProject(pId)
+
+                if (result.affectedRows) {
+                    statusDelete(res)
+                } else {
+                    statusDeleteFail(res)
+                }
+            } else {
+                statusNotFound(res)
+            }
+        } catch (err) {
+            statusServerError(res)
+        }
     }
-  }
 }
