@@ -97,7 +97,7 @@ module.exports = {
                      ac.username,
                      en.e_skill,
                      en.e_address,
-                     en.e_github
+                     en.e_name
                 FROM enginer en
                 JOIN account ac
                   ON ac.acc_id = en.acc_id
