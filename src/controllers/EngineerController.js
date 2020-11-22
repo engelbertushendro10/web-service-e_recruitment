@@ -51,7 +51,7 @@ module.exports = {
                 statusNotFound(res)
             }
         } catch (error) {
-            console.log(error)
+            //   console.log(error)
             statusServerError(res)
         }
     },
