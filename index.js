@@ -18,16 +18,17 @@ const skillRouter = require('./src/routes/skill')
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
+app.use('/image', express.static('./uploads'))
 
 // setting cors
 app.use(cors())
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authoization'
-  )
-  next()
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authoization'
+    )
+    next()
 })
 app.use('/account', accountRouter)
 app.use('/enginer', enginerRouter)
@@ -39,8 +40,8 @@ app.use('/project', projectRouter)
 app.use('/skill', skillRouter)
 
 app.get('/', (_request, response) => {
-  response.send('e-recruitment web service')
+    response.send('e-recruitment web service')
 })
 app.listen(port, () => {
-  console.log(`Listen app backend on port ${port}`)
+    console.log(`Listen app backend on port ${port}`)
 })

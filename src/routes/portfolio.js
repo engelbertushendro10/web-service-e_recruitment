@@ -1,18 +1,22 @@
 const express = require('express')
 const router = express.Router()
+    //const multer = require('multer')
+const { authorization } = require('../midleware/auth')
+const upload = require('../midleware/multer')
 
 const {
-  createPortfolio,
-  getAllPortfolioById,
-  getPortfolioById,
-  updatePortfolio,
-  deletePortfolio
+    createPortfolio,
+    getAllPortfolioById,
+    getPortfolioById,
+    updatePortfolio,
+    deletePortfolio
 } = require('../controllers/PortfolioController')
 
-router.post('/', createPortfolio)
-router.get('/:enId', getAllPortfolioById)
-router.get('/detail/:prId', getPortfolioById)
-router.put('/:prId', updatePortfolio)
-router.delete('/:prId', deletePortfolio)
+
+router.post('/', authorization, upload, createPortfolio)
+router.get('/:eId', getAllPortfolioById)
+router.get('/detail/:pfId', getPortfolioById)
+router.put('/:pfId', updatePortfolio)
+router.delete('/:pfId', deletePortfolio)
 
 module.exports = router

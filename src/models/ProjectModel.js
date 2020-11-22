@@ -24,7 +24,6 @@ module.exports = {
           FROM project
          WHERE ?
       `
-
             dbConnect.query(query, { c_id: cId }, (error, results, _fields) => {
                 if (!error) {
                     resolve(results)

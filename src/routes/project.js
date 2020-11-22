@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-    //const { authorization } = require('../helpers/auth')
+const { authorization } = require('../midleware/auth')
+const uploadImage = require('../midleware/multer')
 
 const {
     createProject,
@@ -11,10 +12,10 @@ const {
 } = require('../controllers/ProjectController')
     //const { authorization } = require('../helpers/auth')
 
-router.post('/', createProject)
-router.get('/:cId', getAllProjectById)
-router.get('/detail/:pId', getProjectById)
-router.put('/:pId', updateProject)
-router.delete('/:pId', deleteProject)
+router.post('/', authorization, uploadImage, createProject)
+router.get('/:cId', authorization, getAllProjectById)
+router.get('/detail/:pId', authorization, getProjectById)
+router.put('/:pId', authorization, updateProject)
+router.delete('/:pId', authorization, deleteProject)
 
 module.exports = router

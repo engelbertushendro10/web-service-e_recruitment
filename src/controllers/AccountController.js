@@ -8,7 +8,7 @@ const {
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv')
-const { statusNotFound, statusLogin, statusCreate, statusServerError } = require('../helpers/status')
+const { statusNotFound, statusCreate, statusServerError } = require('../helpers/status')
 
 module.exports = {
     createAccount: async(req, res, _next) => {
@@ -94,6 +94,7 @@ module.exports = {
                         //secret key harus sama saat generate jwt
                     const token = jwt.sign(peyLoad, process.env.JWT_KEY, { expiresIn: '1h' })
                         //console.log(token);
+                        // sprit operator
                     peyLoad = {...peyLoad, token }
                     res.send({
                         success: true,

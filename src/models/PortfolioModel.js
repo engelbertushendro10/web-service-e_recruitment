@@ -1,91 +1,90 @@
 const dbConnect = require('../config/database')
 
 module.exports = {
-  createPortfolio: (data) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    createPortfolio: (setPf) => {
+        return new Promise((resolve, reject) => {
+            const query = `
         INSERT INTO portfolio
                 SET ?
       `
+            dbConnect.query(query, setPf, (error, results, _fields) => {
+                if (!error) {
+                    resolve(results)
+                } else {
+                    reject(error)
+                }
+            })
+        })
+    },
 
-      dbConnect.query(query, data, (error, results, _fields) => {
-        if (!error) {
-          resolve(results)
-        } else {
-          reject(error)
-        }
-      })
-    })
-  },
-
-  getAllPortfolioById: (enId) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    getAllPortfolioById: (eId) => {
+        return new Promise((resolve, reject) => {
+            const query = `
         SELECT *
           FROM portfolio
          WHERE ?
       `
 
-      dbConnect.query(query, { en_id: enId }, (error, results, _fields) => {
-        if (!error) {
-          resolve(results)
-        } else {
-          reject(error)
-        }
-      })
-    })
-  },
+            dbConnect.query(query, { e_id: eId }, (error, results, _fields) => {
+                if (!error) {
+                    resolve(results)
+                } else {
+                    reject(error)
+                }
+            })
+        })
+    },
 
-  getPortfolioById: (prId) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    getPortfolioById: (pfId) => {
+        return new Promise((resolve, reject) => {
+            const query = `
         SELECT *
           FROM portfolio
          WHERE ?
       `
 
-      dbConnect.query(query, { pr_id: prId }, (error, results, _fields) => {
-        if (!error) {
-          resolve(results)
-        } else {
-          reject(error)
-        }
-      })
-    })
-  },
+            dbConnect.query(query, { pf_id: pfId }, (error, results, _fields) => {
+                if (!error) {
+                    resolve(results)
+                } else {
+                    reject(error)
+                }
+            })
+        })
+    },
 
-  updatePortfolio: (prId, data) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    updatePortfolio: (pfId, setPf) => {
+        return new Promise((resolve, reject) => {
+            const query = `
         UPDATE portfolio
            SET ?
-         WHERE pr_id = ${prId}
+         WHERE pf_id = ${pfId}
       `
 
-      dbConnect.query(query, data, (error, results, _fields) => {
-        if (!error) {
-          resolve(results)
-        } else {
-          reject(error)
-        }
-      })
-    })
-  },
+            dbConnect.query(query, setPf, (error, results, _fields) => {
+                if (!error) {
+                    resolve(results)
+                } else {
+                    reject(error)
+                }
+            })
+        })
+    },
 
-  deletePortfolio: (prId) => {
-    return new Promise((resolve, reject) => {
-      const query = `
+    deletePortfolio: (pfId) => {
+        return new Promise((resolve, reject) => {
+            const query = `
         DELETE FROM portfolio
          WHERE ?
       `
 
-      dbConnect.query(query, { pr_id: prId }, (error, results, _fields) => {
-        if (!error) {
-          resolve(results)
-        } else {
-          reject(error)
-        }
-      })
-    })
-  }
+            dbConnect.query(query, { pf_id: pfId }, (error, results, _fields) => {
+                if (!error) {
+                    resolve(results)
+                } else {
+                    reject(error)
+                }
+            })
+        })
+    }
 }
