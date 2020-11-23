@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
+const { authorization } = require('../midleware/auth')
 
 const {
-  getAllCompany,
-  getCompanyById,
-  updateCompany
+    getAllCompany,
+    getCompanyById,
+    updateCompany
 } = require('../controllers/CompanyController')
-// const { route } = require('./engineer')
+    // const { route } = require('./engineer')
 
-router.get('/', getAllCompany)
-router.get('/:compId', getCompanyById)
-router.get('/detail/:compId', getCompanyById)
-router.put('/:compId', updateCompany)
+router.get('/', authorization, getAllCompany)
+router.get('/:compId', authorization, getCompanyById)
+router.get('/detail/:compId', authorization, getCompanyById)
+router.put('/:compId', authorization, updateCompany)
 
 module.exports = router

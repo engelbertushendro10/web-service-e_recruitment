@@ -38,7 +38,6 @@ module.exports = {
                        LIMIT ${paginate.limit} 
                       OFFSET ${paginate.offset}
                     `
-
             dbConnect.query(query, (error, results, _fields) => {
                 if (!error) {
                     resolve(results)
@@ -65,7 +64,6 @@ module.exports = {
             ON ac.acc_id = en.acc_id
          WHERE ?
       `
-
             dbConnect.query(query, { e_id: eId }, (error, results, _fields) => {
                 if (!error) {
                     resolve(results)
@@ -82,22 +80,22 @@ module.exports = {
             let fill
 
             if (filter === 0) {
-                fill = 'ac.username'
+                fill = 'en.e_name'
             } else if (filter === 1) {
                 fill = 'en.e_skill'
             } else if (filter === 2) {
-                fill = 'e_name'
+                fill = 'en.e_github'
             } else if (filter === 3 || filter === 4) {
                 fill = 'en.e_addres'
             }
 
             const query = `
               SELECT en.e_id,
+                     en.e_name,
                      ac.acc_id,
-                     ac.username,
                      en.e_skill,
                      en.e_address,
-                     en.e_name
+                     en.e_github
                 FROM enginer en
                 JOIN account ac
                   ON ac.acc_id = en.acc_id

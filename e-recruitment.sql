@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2020 at 07:04 PM
+-- Generation Time: Nov 23, 2020 at 09:01 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -46,7 +46,8 @@ INSERT INTO `account` (`acc_id`, `username`, `password`, `email`, `type`, `creat
 (22, 'tinorajen', '$2b$10$fpFdKkNQoK7gO0EZB4nbxOUHU5LlWMfJujh4zGGkkp2XNJMACgZCK', 'tinorajen10@gmail.com', 'enginer', '2020-11-18 16:08:10', '2020-11-18 16:08:10'),
 (24, 'hyundaimobil', '$2b$10$3pUk1/SxY7EFVj87OaYV9eBlvMPdknm/tJ/siKinAjTvXIwCZPZji', 'hyundaimobil@gmail.com', '', '2020-11-19 10:53:30', '2020-11-19 10:53:30'),
 (25, 'toyotadenpasar', '$2b$10$XPR4Ou8naCDgW9Wj4hzKbOKf/AR2F/rSq/4vAKTHgCN2iqACBF7kO', 'toyotadenpasar@gmail.com', 'company', '2020-11-20 00:16:34', '2020-11-20 00:16:34'),
-(26, 'toyotadenpasar', '$2b$10$NM5gW3Y.7SCs4uWqCr0qBuT7P1xo6GRhyXYW1SDY3M6kbfRjetzPK', 'toyotadenpasar@gmail.com', 'company', '2020-11-22 23:36:10', '2020-11-22 23:36:10');
+(26, 'toyotadenpasar', '$2b$10$NM5gW3Y.7SCs4uWqCr0qBuT7P1xo6GRhyXYW1SDY3M6kbfRjetzPK', 'toyotadenpasar@gmail.com', 'company', '2020-11-22 23:36:10', '2020-11-22 23:36:10'),
+(27, 'engelbertushendro10', '$2b$10$MoZzljqXFy0mjN3usd/o.uz7jC66b//dtCxoHKQOla5hlHYYm9Sby', 'engelbertushendro10@gmail.com', 'enginer', '2020-11-23 10:59:25', '2020-11-23 10:59:25');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ INSERT INTO `company` (`c_id`, `ac_id`, `c_name`, `c_adress`, `c_sector`, `c_des
 CREATE TABLE `enginer` (
   `e_id` int(11) UNSIGNED NOT NULL,
   `acc_id` int(11) UNSIGNED DEFAULT NULL,
-  `e_addres` varchar(191) NOT NULL,
+  `e_addres` text NOT NULL,
   `e_skill` varchar(191) NOT NULL,
   `e_github` varchar(191) NOT NULL,
   `e_sosmed` varchar(191) NOT NULL,
@@ -97,7 +98,8 @@ CREATE TABLE `enginer` (
 --
 
 INSERT INTO `enginer` (`e_id`, `acc_id`, `e_addres`, `e_skill`, `e_github`, `e_sosmed`, `e_name`, `created_at`, `update_at`) VALUES
-(5, 22, 'Jl. Raya Sesetan, Denpasar-Bali', 'Kotlin, Javascript', 'github.com/tinorajen10', '@tinorajen', 'tinorajen', '2020-11-18 16:08:10', '2020-11-18 16:08:10');
+(5, 22, 'Jl. Raya Sesetan, Denpasar-Bali', 'Kotlin, Javascript', 'github.com/tinorajen10', '@tinorajen', 'tinorajen', '2020-11-18 16:08:10', '2020-11-18 16:08:10'),
+(6, 27, 'Jl. Raya Sesetan, Denpasar-Bali', 'Kotlin, Javascript', 'github.com/engelbertushendro10', '@engelbertushendro', 'engelbertus hendro', '2020-11-23 10:59:25', '2020-11-23 10:59:25');
 
 -- --------------------------------------------------------
 
@@ -131,7 +133,7 @@ CREATE TABLE `hire` (
   `hr_progres` varchar(191) NOT NULL,
   `hr_price` int(11) NOT NULL,
   `status` enum('waiting','aprove','reject','') NOT NULL,
-  `date_confirm` date NOT NULL DEFAULT current_timestamp(),
+  `date_confirm` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -164,7 +166,8 @@ CREATE TABLE `portfolio` (
 --
 
 INSERT INTO `portfolio` (`pf_id`, `e_id`, `pf_app`, `pf_desc`, `pf_repo`, `pf_image`, `pf_type_app`) VALUES
-(12, 5, 'booking tiket', 'aplikasi e-recruitment', 'github.com/engelbertushendro10', 'pf_image-1606037023892.png', 'android app');
+(12, 5, 'booking tiket', 'aplikasi e-recruitment', 'github.com/engelbertushendro10', 'pf_image-1606037023892.png', 'android app'),
+(13, 6, 'E-learning', 'aplikasi belajar online', 'github.com/engelbertushendro10', 'pf_image-1606104139557.png', 'android app');
 
 -- --------------------------------------------------------
 
@@ -254,7 +257,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `acc_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `company`
@@ -266,7 +269,7 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `enginer`
 --
 ALTER TABLE `enginer`
-  MODIFY `e_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `e_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `experience`
@@ -284,7 +287,7 @@ ALTER TABLE `hire`
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `pf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `pf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `project`

@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use('/image', express.static('./uploads'))
 
+//localhost:3000/image/
+
 // setting cors
 app.use(cors())
 app.use((req, res, next) => {
